@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>feed</title>
+	
+	<script type="text/javascript">
+	var feeds = [{"feed": {
+	  "id": "0",
+	  "person": "EU",
+	  "notifications": [
+	      {"id": "0", "category": "newlocation", "friend": "Adrian", "location": "Palas", "lat": "", "longit": ""},
+	      {"id": "1", "category": "invitation", "friend": "Adrian", "location": "Palas", "lat": "", "longit": "", "timestamp": "",},
+	      {"id": "2", "category": "favourites", "friend": "Adrian", "location": "Palas", "lat": "", "longit": ""}
+	    ]
+	}},
+	{"feed": {
+	  "id": "1",
+	  "person": "TU",
+	  "notifications": [
+	      {"id": "0", "category": "newlocation", "friend": "", "location": "", "lat": "", "longit": ""},
+	      {"id": "1", "category": "invitation", "friend": "", "location": "", "lat": "", "longit": "", "timestamp": "",},
+	      {"id": "2", "category": "favourites", "friend": "", "location": "", "lat": "", "longit": ""}
+	    ]
+	}}];
+
+function show() {
+	var id="0";
+	for (var i = 0, n=feeds.length; i < n; i++) {
+		if(feeds[i].feed.id === id) {
+
+			for (var j = feeds[i].feed.notifications.length-1; j >= 0 ; j--) {
+
+				var category = feeds[i].feed.notifications[j].category;
+				var	friend = feeds[i].feed.notifications[j].friend;
+				var location = feeds[i].feed.notifications[j].location;
+				var lat = feeds[i].feed.notifications[j].lat;
+				var longit = feeds[i].feed.notifications[j].longit;
+
+				switch(category) {
+					case "newlocation":
+						var not = friend + " a adaugat locatia " + location;
+						break;
+					case "invitation":
+						var not = friend + " te-a invitat sa va intalniti la " + location;
+						break;
+					case "favourites":
+						var not = friend + " a adaugat locatia " + location.toString() + " la favorite";
+						break;
+				}
+				console.log(not);
+					
+			}				
+
+		}
+	}
+}
+
+	</script>
+</head>
+<body>
+	<input type="submit" value="show" onclick="show()"></input>
+</body>

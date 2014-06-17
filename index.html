@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Calculator</title>
+	
+	<script type="text/javascript">
+	var form = null; 
+	function addElement () { 
+
+	  var form = document.createElement("form"); 
+	  var text_input = document.createElement("input");
+	  var buttons = new Array();
+
+	  for (var i = 0; i < 10; i++) {
+	  	buttons[i] = document.createElement("input");
+	  }
+
+	  var eq = document.createElement("input");
+	  var p = document.createElement("input");
+	  var plus = document.createElement("input");
+	  var minus = document.createElement("input");
+	  var mod = document.createElement("input");
+	  var div = document.createElement("input");
+	  var c = document.createElement("input");
+	  var semn = document.createElement("input");
+	  
+
+	  text_input.setAttribute("type", "text");;
+	  text_input.disabled=true; 
+	  text_input.setAttribute("size", "19");
+	  text_input.setAttribute("id", "rez");
+
+
+	  for (var i = 0; i < 10; i++) {
+	  	buttons[i].setAttribute("type","button");
+	  	buttons[i].setAttribute("id","button" + i);
+	  	buttons[i].setAttribute("value","  " + i + "  ");
+	  	buttons[i].setAttribute("onclick", "displaynum(" + i + ")");
+	  }
+
+
+	  p.setAttribute("type","button");
+	  p.setAttribute("value","   .  ");
+	  p.setAttribute("id","button.");
+	  p.setAttribute("onclick", "displaynum('.')");
+	  eq.setAttribute("type","button");
+	  eq.setAttribute("id","btnResult");
+	  eq.setAttribute("value","             =            ");
+	  eq.setAttribute("onkeypress", "displayResult()");
+	  eq.setAttribute("onclick", "document.getElementById('rez').value = evaluateEx(document.getElementById('rez').value)");
+
+	  plus.setAttribute("type","button");
+	  plus.setAttribute("value"," +  ");
+	  plus.setAttribute("id","button+");
+	  plus.setAttribute("onclick", "displaynum('+')");
+	  minus.setAttribute("type","button");
+	  minus.setAttribute("id","button-");
+	  minus.setAttribute("value","  -  ");
+	  minus.setAttribute("onclick", "displaynum('-')");
+	  mod.setAttribute("type","button");
+	  mod.setAttribute("id","button*");
+	  mod.setAttribute("value","  *  ");
+	  mod.setAttribute("onclick", "displaynum('*')");
+	  div.setAttribute("type","button");
+	  div.setAttribute("id","button/");
+	  div.setAttribute("value","  /  ");
+	  div.setAttribute("onclick", "displaynum('/')");
+	  c.setAttribute("type","button");
+	  c.setAttribute("id","buttonClear");
+	  c.setAttribute("value","  C  ");
+	  c.setAttribute("onclick", "clearInput()");
+	  semn.setAttribute("type","button");
+	  semn.setAttribute("id","btnSchimbaSemn");
+	  semn.setAttribute("value"," +/- ");
+	  semn.setAttribute("onclick", "schimbaSemn()");
+
+
+
+
+	  form.appendChild(document.createElement("br"));
+	  form.appendChild(text_input);
+	  form.appendChild(document.createElement("br"));
+	  form.appendChild(document.createElement("br"));
+	  for (var i = 1; i < 10; i++) {
+	  	form.appendChild(buttons[i]);
+	  	switch(i) {
+	  		case 3:
+	  			form.appendChild(plus);
+	  			form.appendChild(document.createElement("br"));
+	  			break;
+	  		case 6:
+				form.appendChild(minus);
+				form.appendChild(document.createElement("br"));
+	  			break;
+	  		case 9:
+	  			form.appendChild(mod);
+	 			form.appendChild(document.createElement("br"));
+	  			break;
+	  	}
+	  }
+
+	  form.appendChild(c);
+	  form.appendChild(buttons[0]);
+	  form.appendChild(p);
+	  form.appendChild(div);
+	  form.appendChild(document.createElement("br"));
+	  form.appendChild(semn);
+	  form.appendChild(eq);
+
+	  document.body.appendChild(form); 
+	}
+
+	function displaynum(button) {
+		var rez = document.getElementById("rez");
+		rez.value += button; 
+		console.log(button);
+	}
+
+	function clearInput() {
+		document.getElementById("rez").value = ""; 
+	}
+
+	function displayResult()
+	{
+		var x,y;
+		if(window.event) // IE8 and earlier
+		{
+			x=event.keyCode;
+		}
+		else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+		{
+			x=event.which;
+		}
+		keychar=String.fromCharCode(x);
+
+        if (x == 13){
+            document.getElementById('btnResult').click();
+            document.getElementById('btnResult').style.backgroundColor = "blue";
+        	window.setTimeout(function schimba(){document.getElementById('btnResult').style.backgroundColor = "#DDDDDD"}, 1);
+        }
+        else if (x == 92) {
+        	document.getElementById('btnSchimbaSemn').click();
+            document.getElementById('btnSchimbaSemn').style.backgroundColor = "blue";
+        	window.setTimeout(function schimba(){document.getElementById('btnSchimbaSemn').style.backgroundColor = "#DDDDDD"}, 1);
+        }
+        else {
+        	document.getElementById('button' + keychar).click();
+        	document.getElementById('button' + keychar).style.backgroundColor = "blue";
+        	window.setTimeout(function schimba(){document.getElementById('button' + keychar).style.backgroundColor = "#DDDDDD"}, 1);
+        	
+        }
+		console.log(keychar);
+	}
+
+	function clearResult()
+	{
+		var x;
+		if(window.event) // IE8 and earlier
+		{
+			x=event.keyCode;
+		}
+		else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+		{
+			x=event.which;
+		}
+		keychar=String.fromCharCode(x);
+
+       	if(x == 8) {
+        	document.getElementById('buttonClear').click();
+        	document.getElementById('buttonClear').style.backgroundColor = "blue";
+        	window.setTimeout(function schimba(){document.getElementById('buttonClear').style.backgroundColor = "#DDDDDD"}, 1);
+        }
+	}
+
+	function schimbaSemn() {
+		var x;
+		if(window.event) // IE8 and earlier
+		{
+			x=event.keyCode;
+		}
+		else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+		{
+			x=event.which;
+		}
+		keychar=String.fromCharCode(x);
+
+       	if(x == 8) {
+        	document.getElementById('buttonClear').click();
+        	document.getElementById('buttonClear').style.backgroundColor = "blue";
+        	window.setTimeout(function schimba(){document.getElementById('btnSchimbaSemn').style.backgroundColor = "#DDDDDD"}, 1);
+        }
+
+        	var str = document.getElementById("rez").value;
+        	//substring()
+
+        	var i = 0, nr = 0;
+        	while(isNaN(str[str.length-1]) == false) {
+        		console.log("aici");
+        		nr = nr + Math.pow(10,i) * parseFloat(str[str.length-1]);
+        		str = str.substring(0, str.length - 1);
+        		i++;
+        	} 
+        	console.log(str);
+
+        if(str[str.length-1] === "+") {
+        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "-" + nr;
+        } else if(str[str.length-1] === "-") {
+        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "+" + nr;
+        } else {
+        	document.getElementById("rez").value = str + "-" + nr;
+        }
+	}
+
+
+	function evaluateEx(s)
+	{
+		console.log("expresia");
+		console.log(s);
+
+	  	if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-")-s.substring(1, s.length).lastIndexOf("+") == -1) {
+	  		console.log("eval-");
+	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1));
+	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  	}
+	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-") - s.substring(1, s.length).lastIndexOf("+") == 1) {
+	  		console.log("eval+");
+	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1));
+	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	    	return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	  	}
+	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("+")+1]) == true && isNaN(s[s.substring(1, s.length).lastIndexOf("+")-1]) == true) {
+	   		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	  	}
+	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("-")+1]) == true && isNaN(s[s.substring(1, s.length).lastIndexOf("-")-1]) == true) {
+	   		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  	}
+	  	else if (s.lastIndexOf("*") != -1) {
+	   		return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('*')+  1, s.length));
+	  	}
+	  	else if (s.lastIndexOf("/") != -1) {
+	    	return evaluateEx(s.substring(0, s.lastIndexOf('/'))) / evaluateEx(s.substring(s.lastIndexOf('/')+  1, s.length));
+	  	}
+	  	else {
+	  		return parseFloat(s);
+	  	} 
+	}
+
+
+	</script>
+</head>
+<body onload="addElement()" onkeypress = "displayResult()" onkeydown = "clearResult()">
+</body>
