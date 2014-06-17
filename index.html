@@ -193,21 +193,28 @@
         	var str = document.getElementById("rez").value;
         	//substring()
 
-        	var i = 0, nr = 0;
-        	while(isNaN(str[str.length-1]) == false) {
+        	var i = 0, nr = 0, fr = 0;
+        	while(isNaN(str[str.length-1]) == false || str[str.length-1] === ".") {
         		console.log("aici");
-        		nr = nr + Math.pow(10,i) * parseFloat(str[str.length-1]);
+
+        		if(str[str.length-1] != ".") {
+        			nr = nr + Math.pow(10,i) * parseFloat(str[str.length-1]);
+        			i++;
+        		} else {
+        			fr = nr / Math.pow(10,i);
+        			nr = 0;
+        			i = 0;
+        		}
         		str = str.substring(0, str.length - 1);
-        		i++;
+
         	} 
-        	console.log(str);
 
         if(str[str.length-1] === "+") {
-        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "-" + nr;
+        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "-" + (nr + fr);
         } else if(str[str.length-1] === "-") {
-        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "+" + nr;
+        	document.getElementById("rez").value = str.substring(0, str.length - 1) + "+" + (nr + fr);
         } else {
-        	document.getElementById("rez").value = str + "-" + nr;
+        	document.getElementById("rez").value = str + "-" + (nr + fr);
         }
 	}
 
@@ -229,11 +236,53 @@
 	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	    	return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
-	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("+")+1]) == true && isNaN(s[s.substring(1, s.length).lastIndexOf("+")-1]) == true) {
-	   		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && s[s.substring(1, s.length).lastIndexOf("+")] != "-") {
+	  		console.log("dadada");
+	  		if(s[s.substring(1, s.length).lastIndexOf("+")] === "+")
+	  			return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+"))) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	   		else return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
-	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("-")+1]) == true && isNaN(s[s.substring(1, s.length).lastIndexOf("-")-1]) == true) {
-	   		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s[s.substring(1, s.length).lastIndexOf("-")] != "+") {
+	   		if(s[s.substring(1, s.length).lastIndexOf("-")] === "-")
+	   			return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-"))) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	   		else return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  	}
+	  	else if (s.lastIndexOf("*") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("*")+2]) == true) {
+	   		var auxStr = s.substring(0,s.substring(1, s.length).lastIndexOf("*")+1);
+	   		var plus, minus;
+
+	   		console.log("aux "+auxStr);
+	   		plus = auxStr.lastIndexOf("+");
+			minus = auxStr.lastIndexOf("-");
+
+			if(plus > minus) {
+				return evaluateEx(s.substring(0, plus)) + evaluateEx(s.substring(plus + 1, s.length));
+			} else if(minus > plus) {
+				return evaluateEx(s.substring(0, minus)) - evaluateEx(s.substring(minus + 1, s.length));
+			} else {
+				return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('*')+  1, s.length));
+			}
+	   		console.log(s.substring(0, 1));
+	  		console.log(s.substring(1, s.length));
+
+	  	}
+	  	else if (s.lastIndexOf("/") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("/")+1]) == false) {
+	    	var auxStr = s.substring(0,s.substring(1, s.length).lastIndexOf("/")+1);
+	   		var plus, minus;
+
+	   		console.log("aux "+auxStr);
+	   		plus = auxStr.lastIndexOf("+");
+			minus = auxStr.lastIndexOf("-");
+
+			if(plus > minus) {
+				return evaluateEx(s.substring(0, plus)) + evaluateEx(s.substring(plus + 1, s.length));
+			} else if(minus > plus) {
+				return evaluateEx(s.substring(0, minus)) - evaluateEx(s.substring(minus + 1, s.length));
+			} else {
+				return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('/')+  1, s.length));
+			}
+	   		console.log(s.substring(0, 1));
+	  		console.log(s.substring(1, s.length));
 	  	}
 	  	else if (s.lastIndexOf("*") != -1) {
 	   		return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('*')+  1, s.length));
