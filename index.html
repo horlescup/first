@@ -236,13 +236,13 @@
 	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	    	return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
-	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && s[s.substring(1, s.length).lastIndexOf("+")] != "-") {
+	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && s[s.substring(1, s.length).lastIndexOf("+")] != "-" && s[s.substring(1, s.length).lastIndexOf("+")] != "*" && s[s.substring(1, s.length).lastIndexOf("+")] != "/") {
 	  		console.log("dadada");
 	  		if(s[s.substring(1, s.length).lastIndexOf("+")] === "+")
 	  			return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+"))) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	   		else return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
-	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s[s.substring(1, s.length).lastIndexOf("-")] != "+") {
+	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s[s.substring(1, s.length).lastIndexOf("-")] != "+" && s[s.substring(1, s.length).lastIndexOf("-")] != "*" && s[s.substring(1, s.length).lastIndexOf("-")] != "/") {
 	   		if(s[s.substring(1, s.length).lastIndexOf("-")] === "-")
 	   			return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-"))) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
 	   		else return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
