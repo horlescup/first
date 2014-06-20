@@ -226,14 +226,14 @@
 
 	  	if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-")-s.substring(1, s.length).lastIndexOf("+") == -1) {
 	  		console.log("eval-");
-	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1));
-	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  		console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1));
+	  		console.log(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
 	  		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
 	  	}
 	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-") - s.substring(1, s.length).lastIndexOf("+") == 1) {
 	  		console.log("eval+");
-	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1));
-	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	  		console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1));
+	  		console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	    	return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
 	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && s[s.substring(1, s.length).lastIndexOf("+")] != "-" && s[s.substring(1, s.length).lastIndexOf("+")] != "*" && s[s.substring(1, s.length).lastIndexOf("+")] != "/") {
@@ -255,15 +255,15 @@
 	   		plus = auxStr.lastIndexOf("+");
 			minus = auxStr.lastIndexOf("-");
 
-			if((plus >=1 && plus > minus) || (minus >= 1 && plus >= 1 && minus - plus == 1)) {
+			if((plus >=1 && plus > minus) ||(minus >= 1 && plus >= 1 && minus - plus == 1)) {
 				return evaluateEx(s.substring(0, plus)) + evaluateEx(s.substring(plus + 1, s.length));
 			} else if((minus >=1 && minus > plus) || (minus >= 1 && plus >= 1 && plus - minus == 1)) {
 				return evaluateEx(s.substring(0, minus)) - evaluateEx(s.substring(minus + 1, s.length));
 			} else {
 				return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('*')+  1, s.length));
 			}
-	   		console.log(s.substring(0, 1));
-	  		console.log(s.substring(1, s.length));
+	  // 		console.log(s.substring(0, 1));
+	  //		console.log(s.substring(1, s.length));
 
 	  	}
 	  	else if (s.lastIndexOf("/") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("/")+2]) == true) {
@@ -292,6 +292,7 @@
 	  	}
 	  	else {
 	  		return parseFloat(s);
+	  		console.log("sirul e  " + s);
 	  	} 
 	}
 
