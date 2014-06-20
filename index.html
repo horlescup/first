@@ -117,7 +117,7 @@
 	}
 
 	function clearInput() {
-		document.getElementById("rez").value = ""; 
+		document.getElementById("rez").value = document.getElementById("rez").value.substring(0,document.getElementById("rez").value.length-1); 
 	}
 
 	function displayResult()
@@ -255,9 +255,9 @@
 	   		plus = auxStr.lastIndexOf("+");
 			minus = auxStr.lastIndexOf("-");
 
-			if(plus > minus) {
+			if((plus >=1 && plus > minus) || (minus >= 1 && plus >= 1 && minus - plus == 1)) {
 				return evaluateEx(s.substring(0, plus)) + evaluateEx(s.substring(plus + 1, s.length));
-			} else if(minus > plus) {
+			} else if((minus >=1 && minus > plus) || (minus >= 1 && plus >= 1 && plus - minus == 1)) {
 				return evaluateEx(s.substring(0, minus)) - evaluateEx(s.substring(minus + 1, s.length));
 			} else {
 				return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('*')+  1, s.length));
@@ -266,7 +266,7 @@
 	  		console.log(s.substring(1, s.length));
 
 	  	}
-	  	else if (s.lastIndexOf("/") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("/")+1]) == false) {
+	  	else if (s.lastIndexOf("/") != -1 && isNaN(s[s.substring(1, s.length).lastIndexOf("/")+2]) == true) {
 	    	var auxStr = s.substring(0,s.substring(1, s.length).lastIndexOf("/")+1);
 	   		var plus, minus;
 
@@ -274,12 +274,12 @@
 	   		plus = auxStr.lastIndexOf("+");
 			minus = auxStr.lastIndexOf("-");
 
-			if(plus > minus) {
+			if((plus >=1 && plus > minus) || (minus >= 1 && plus >= 1 && minus - plus == 1)) {
 				return evaluateEx(s.substring(0, plus)) + evaluateEx(s.substring(plus + 1, s.length));
-			} else if(minus > plus) {
+			} else if((minus >=1 && minus > plus) || (minus >= 1 && plus >= 1 && plus - minus == 1)) {
 				return evaluateEx(s.substring(0, minus)) - evaluateEx(s.substring(minus + 1, s.length));
 			} else {
-				return evaluateEx(s.substring(0, s.lastIndexOf('*'))) * evaluateEx(s.substring(s.lastIndexOf('/')+  1, s.length));
+				return evaluateEx(s.substring(0, s.lastIndexOf('/'))) / evaluateEx(s.substring(s.lastIndexOf('/')+  1, s.length));
 			}
 	   		console.log(s.substring(0, 1));
 	  		console.log(s.substring(1, s.length));
