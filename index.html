@@ -226,14 +226,14 @@
 
 	  	if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-")-s.substring(1, s.length).lastIndexOf("+") == -1) {
 	  		console.log("eval-");
-	  		console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1));
-	  		console.log(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
+	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1));
+	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
 	  		return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("-") + 1)) - evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("-")+  2, s.length));
 	  	}
 	  	else if (s.substring(1, s.length).lastIndexOf("-") != -1 && s.substring(1, s.length).lastIndexOf("+") != -1 && s.substring(1, s.length).lastIndexOf("-") - s.substring(1, s.length).lastIndexOf("+") == 1) {
 	  		console.log("eval+");
-	  		console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1));
-	  		console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
+	  	//	console.log(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1));
+	  	//	console.log(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	    	return evaluateEx(s.substring(0, s.substring(1, s.length).lastIndexOf("+") + 1)) + evaluateEx(s.substring(s.substring(1, s.length).lastIndexOf("+")+  2, s.length));
 	  	}
 	  	else if (s.substring(1, s.length).lastIndexOf("+") != -1 && s[s.substring(1, s.length).lastIndexOf("+")] != "-" && s[s.substring(1, s.length).lastIndexOf("+")] != "*" && s[s.substring(1, s.length).lastIndexOf("+")] != "/") {
